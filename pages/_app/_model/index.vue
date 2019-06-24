@@ -1,114 +1,156 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <h1 class="text-capitalize title">{{ model_name_p }}</h1>
-      <v-divider class="mx-3" inset vertical></v-divider>
-      <v-spacer></v-spacer>
-      <v-btn icon class="mb-2" @click="refresh()"
-        ><v-icon>refresh</v-icon></v-btn
-      >
-      <v-btn
-        color="primary"
-        class="mb-2"
-        :to="{
-          name: 'app-model-add',
-          params: { app: app_name, model: model_name }
-        }"
-        ><v-icon left>add</v-icon> New Item</v-btn
-      >
-    </v-card-title>
+  <div>
+    <v-card>
+      <v-card-title>
+        <h1 class="text-capitalize title">{{ model_name_p }}</h1>
+        <v-divider class="mx-3" vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-btn icon class="mb-2" @click="refresh()"
+          ><v-icon>refresh</v-icon></v-btn
+        >
+        <v-btn
+          color="primary"
+          class="mb-2"
+          :to="{
+            name: 'app-model-add',
+            params: { app: app_name, model: model_name }
+          }"
+          ><v-icon left>add</v-icon> New Item</v-btn
+        >
+      </v-card-title>
 
-    <v-divider></v-divider>
-    <v-toolbar card color="white">
-      <v-text-field
-        v-model.trim="search"
-        prepend-icon="search"
-        label="Search"
-        single-line
-        hide-details
-        solo
-        flat
-        clearable
-        @click:clear="
-          search = ''
-          refresh()
-        "
-      ></v-text-field>
-      <v-btn icon @click="refresh()">
-        <v-icon>filter_list</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-divider></v-divider>
-    <v-data-table
-      ref="datatable"
-      v-model="selected"
-      :headers="headers"
-      :items="objects"
-      class="elevation-1"
-      :loading="loading"
-      :pagination.sync="pagination"
-      :total-items="totalItems"
-      :select-all="selectable"
-    >
-      <template v-slot:items="props">
-        <transition type="transition" :name="!dragging ? 'flip-list' : null">
-          <tr>
-            <td v-if="selectable">
-              <v-checkbox
-                v-model="props.selected"
-                primary
-                hide-details
-              ></v-checkbox>
-            </td>
-            <td v-for="h of headers" :key="h.value" class="text-xs-left">
-              <v-icon v-if="draggable && h.value === '_reorder'" class="drag"
-                >drag_indicator</v-icon
-              >
-              <template v-else-if="props.item.$edit && h.editable">
-                <v-text-field v-model="props.item[h.value]" autofocus>
-                </v-text-field>
-              </template>
-              <template v-else>
-                <v-icon v-if="h.editable" small @click="editItem(props.item)"
-                  >edit</v-icon
+      <v-divider></v-divider>
+      <v-toolbar card color="white">
+        <v-text-field
+          v-model.trim="search"
+          prepend-icon="search"
+          label="Search"
+          single-line
+          hide-details
+          solo
+          flat
+          clearable
+          @click:clear="
+            search = ''
+            refresh()
+          "
+        ></v-text-field>
+        <v-btn icon @click="refresh()">
+          <v-icon>filter_list</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-divider></v-divider>
+      <v-data-table
+        ref="datatable"
+        v-model="selected"
+        :headers="headers"
+        :items="objects"
+        class="elevation-1"
+        :loading="loading"
+        :pagination.sync="pagination"
+        :total-items="totalItems"
+        :select-all="selectable"
+      >
+        <template v-slot:items="props">
+          <transition type="transition" :name="!dragging ? 'flip-list' : null">
+            <tr>
+              <td v-if="selectable">
+                <v-checkbox
+                  v-model="props.selected"
+                  primary
+                  hide-details
+                ></v-checkbox>
+              </td>
+              <td v-for="h of headers" :key="h.value" class="text-xs-left">
+                <v-icon v-if="draggable && h.value === '_reorder'" class="drag"
+                  >drag_indicator</v-icon
                 >
-                <router-link
-                  v-if="h.display_link"
-                  :to="{
-                    name: 'app-model-id-change',
-                    params: {
-                      app: app_name,
-                      model: model_name,
-                      id: props.item.id
-                    }
-                  }"
-                >
-                  <field-cell
-                    :value="props.item[h.value]"
-                    :header="h"
-                  ></field-cell>
-                </router-link>
-                <span v-else>
-                  <field-cell
-                    :value="props.item[h.value]"
-                    :header="h"
-                  ></field-cell>
-                </span>
-              </template>
-            </td>
-            <td v-if="props.item.$edit" class="justify-center">
-              <v-icon class="mr-2" @click="resetItem(props.item)">
-                replay
-              </v-icon>
-              <v-icon @click="saveItem(props.item)">
-                save
-              </v-icon>
-            </td>
-          </tr>
-        </transition>
-      </template>
-    </v-data-table>
-  </v-card>
+                <template v-else-if="props.item.$edit && h.editable">
+                  <v-text-field v-model="props.item[h.value]" autofocus>
+                  </v-text-field>
+                </template>
+                <template v-else>
+                  <v-icon v-if="h.editable" small @click="editItem(props.item)"
+                    >edit</v-icon
+                  >
+                  <router-link
+                    v-if="h.display_link"
+                    :to="{
+                      name: 'app-model-id-change',
+                      params: {
+                        app: app_name,
+                        model: model_name,
+                        id: props.item.id
+                      }
+                    }"
+                  >
+                    <field-cell
+                      :value="props.item[h.value]"
+                      :header="h"
+                    ></field-cell>
+                  </router-link>
+                  <span v-else>
+                    <field-cell
+                      :value="props.item[h.value]"
+                      :header="h"
+                    ></field-cell>
+                  </span>
+                </template>
+              </td>
+              <td v-if="props.item.$edit" class="justify-center">
+                <v-icon class="mr-2" @click="resetItem(props.item)">
+                  replay
+                </v-icon>
+                <v-icon @click="saveItem(props.item)">
+                  save
+                </v-icon>
+              </td>
+            </tr>
+          </transition>
+        </template>
+      </v-data-table>
+    </v-card>
+    <v-card v-if="actions.length || filters.length" class="mt-4">
+      <v-toolbar v-if="actions.length" card color="white" height="64">
+        <v-toolbar-title class="subheading">Actions</v-toolbar-title>
+        <v-divider class="mx-3" inset vertical></v-divider>
+        <v-select
+          v-model="action"
+          :items="actions"
+          label="Actions"
+          :loading="loading"
+          flat
+          light
+        ></v-select>
+        <v-toolbar-items>
+          <v-btn flat icon>
+            <v-icon>send</v-icon>
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+      <v-divider></v-divider>
+      <v-toolbar v-if="filters.length" card color="white" height="64">
+        <v-toolbar-title class="subheading">Filters</v-toolbar-title>
+        <v-divider class="mx-3" inset vertical></v-divider>
+        <v-select
+          v-for="(f, i) of filters"
+          :key="i"
+          v-model="f.selected"
+          :items="f.choices"
+          :label="f.title"
+          :loading="loading"
+          flat
+          light
+          class="mx-2"
+        ></v-select>
+        <v-toolbar-items>
+          <v-btn flat icon>
+            <v-icon>filter_list</v-icon>
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+    </v-card>
+  </div>
 </template>
 <script>
 import startCase from 'lodash/startCase'
@@ -156,7 +198,10 @@ export default {
     cachedItem: null,
     params: {
       o: []
-    }
+    },
+    actions: [],
+    action: '',
+    filters: []
   }),
   watch: {
     pagination: {
@@ -274,6 +319,25 @@ export default {
       this.draggable = !!(
         data.cl.list_display.includes('_reorder') && data.sortable_update_url
       )
+      let actions = []
+      if (data.cl.model_admin.actions_choices.length > 0) {
+        actions = data.cl.model_admin.actions_choices.map(([k, v]) => ({
+          value: k,
+          text: v
+        }))
+      }
+      this.actions = actions
+      for (const f of data.cl.filters) {
+        f.selected = null
+        for (const c of f.choices) {
+          c.text = c.display
+          c.value = c.query_string
+          if (c.selected) {
+            f.selected = c
+          }
+        }
+      }
+      this.filters = data.cl.filters
       this.loading = false
     },
     queryParams() {

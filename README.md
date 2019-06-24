@@ -13,6 +13,23 @@ Why Django+Vue Admin Dashboard ?
 - Extensible by design
 - Better Developer Experience
 
+Supported Django Packages
+-------------------------
+
+- [x] django-admin-sortable2
+- [x] django-ckeditor
+- [ ] django-admin-tools
+- [ ] django-admin-rangefilter
+- [ ] django-jet2
+- [ ] django.contrib.admindocs
+- [x] django.contrib.messages
+- [ ] django.contrib.sites
+- [ ] django-debug-toolbar
+- [ ] django-maintenance-mode
+- [ ] django-modeltranslation
+- [ ] django-import-export
+- [ ] django-tenants
+
 Technologies
 ------------
 
@@ -23,7 +40,7 @@ Technologies
 Requirements
 ------------
 
-- Django + Django-admin-rest extension
+- Django + Django-admin-rest package
 - Nodejs
 
 Installation
