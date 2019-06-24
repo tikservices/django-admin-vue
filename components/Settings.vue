@@ -175,13 +175,13 @@ export default {
   display: block;
   cursor: pointer;
 }
-.color-option--label input[type="radio"] {
+.color-option--label input[type='radio'] {
   display: none;
 }
-.color-option--label input[type="radio"]+span {
+.color-option--label input[type='radio'] + span {
   position: relative;
 }
-.color-option--label input[type="radio"]+span>.overlay {
+.color-option--label input[type='radio'] + span > .overlay {
   display: none;
   position: absolute;
   top: 0;
@@ -190,12 +190,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   text-align: center;
   line-height: 30px;
   color: #fff;
 }
-.color-option--label input[type="radio"]:checked+span>.overlay {
+.color-option--label input[type='radio']:checked + span > .overlay {
   display: block;
 }
 .color-option--label .bg {
@@ -204,13 +204,13 @@ export default {
 .color-option--item {
   overflow: hidden;
   display: block;
-  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
 }
 .color-option--item--header {
   height: 10px;
 }
-.color-option--item>span {
+.color-option--item > span {
   display: block;
   float: left;
   width: 50%;

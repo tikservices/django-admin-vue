@@ -1,9 +1,25 @@
 {
   "name": "django-admin-vue",
-  "version": "1.0.0",
-  "description": "Django Admin Vue Dashboard",
-  "author": "TIK (Technology Innovation Network) &lt;contact@tik.tn&gt;",
-  "private": true,
+  "version": "0.0.1",
+  "description": "Django+Vue Admin Vue Dashboard (next generation django administration dashboard)",
+  "author": "Technology Innovation Network <contact@tik.tn> (https://tik.tn/)",
+  "keywords": [
+    "django",
+    "dashboard",
+    "admin",
+    "vue",
+    "material design",
+    "vuetify"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/lejenome/django-admin-vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lejenome/django-admin-vue"
+  },
+  "bugs": {
+    "url": "https://github.com/lejenome/django-admin-vue/issues"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

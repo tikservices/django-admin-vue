@@ -69,7 +69,7 @@
                 </v-text-field>
               </template>
               <template v-else>
-                <v-icon v-if="h.editable" @click="editItem(props.item)" small
+                <v-icon v-if="h.editable" small @click="editItem(props.item)"
                   >edit</v-icon
                 >
                 <router-link
@@ -158,6 +158,39 @@ export default {
       o: []
     }
   }),
+  watch: {
+    pagination: {
+      async handler() {
+        await this.refresh()
+      },
+      deep: true
+    },
+    draggable(nV, oV) {
+      console.log('draggable', nV, oV)
+      if (this.$draggable) {
+        this.$draggable.destroy()
+        this.$draggable = null
+      }
+      if (nV) {
+        let table = this.$refs.datatable.$el.querySelector('tbody')
+        this.$draggable = Sortable.create(table, {
+          handle: '.drag',
+          disabled: !this.draggable,
+          ghostClass: 'ghost',
+          animation: 150,
+          onStart: evt => {
+            this.dragging = true
+          },
+          onEnd: ({ oldIndex, newIndex }) => {
+            console.log('Drag End', 'old:', oldIndex, 'new:', newIndex)
+            const rowSelected = this.objects.splice(oldIndex, 1)[0] // Get the selected row and remove it
+            this.objects.splice(newIndex, 0, rowSelected) // Move it to the new index
+            this.dragging = false
+          }
+        })
+      }
+    }
+  },
   async mounted() {
     this.app_name = this.$route.params.app
     this.model_name = this.$route.params.model
@@ -288,39 +321,6 @@ export default {
     refreshItem() {
       this.cachedItem = {}
       this.preItem = {}
-    }
-  },
-  watch: {
-    pagination: {
-      async handler() {
-        await this.refresh()
-      },
-      deep: true
-    },
-    draggable(nV, oV) {
-      console.log('draggable', nV, oV)
-      if (this.$draggable) {
-        this.$draggable.destroy()
-        this.$draggable = null
-      }
-      if (nV) {
-        let table = this.$refs.datatable.$el.querySelector('tbody')
-        this.$draggable = Sortable.create(table, {
-          handle: '.drag',
-          disabled: !this.draggable,
-          ghostClass: 'ghost',
-          animation: 150,
-          onStart: evt => {
-            this.dragging = true
-          },
-          onEnd: ({ oldIndex, newIndex }) => {
-            console.log('Drag End', 'old:', oldIndex, 'new:', newIndex)
-            const rowSelected = this.objects.splice(oldIndex, 1)[0] // Get the selected row and remove it
-            this.objects.splice(newIndex, 0, rowSelected) // Move it to the new index
-            this.dragging = false
-          }
-        })
-      }
     }
   }
 }

@@ -58,7 +58,7 @@ export default {
     credentials: true,
     withCredentials: true,
     xsrfCookieName: 'csrftoken',
-    xsrfHeaderName: 'X-CSRFToken',
+    xsrfHeaderName: 'X-CSRFToken'
   },
 
   /*

@@ -21,7 +21,7 @@
         <v-list dense expand>
           <template v-for="(item, index) in items">
             <template v-if="item.items">
-              <v-list-group value="true" :prepend-icon="item.icon" :key="index">
+              <v-list-group :key="index" value="true" :prepend-icon="item.icon">
                 <v-list-tile slot="activator" ripple>
                   <v-list-tile-content>
                     <v-list-tile-title>
@@ -45,7 +45,7 @@
               </v-list-group>
             </template>
             <template v-else>
-              <v-list-tile :to="item.to" :key="index" ripple>
+              <v-list-tile :key="index" :to="item.to" ripple>
                 <v-list-tile-action>
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-tile-action>
@@ -81,7 +81,7 @@
         :nudge-bottom="10"
         transition="scale-transition"
       >
-        <v-btn icon large flat slot="activator">
+        <v-btn slot="activator" icon large flat>
           <v-avatar size="30px">
             <v-icon>person</v-icon>
           </v-avatar>
@@ -89,15 +89,15 @@
         <v-list class="pa-0">
           <v-list-tile
             v-for="(item, index) in userItems"
+            :key="index"
             :to="!item.href ? { name: item.name } : null"
             :href="item.href"
             ripple="ripple"
             :disabled="item.disabled"
             :target="item.target"
             rel="noopener"
-            :key="index"
           >
-	    <!--@click="item.click"-->
+            <!--@click="item.click"-->
             <v-list-tile-action v-if="item.icon">
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -130,7 +130,7 @@ import Settings from '../components/Settings.vue'
 export default {
   components: {
     VuePerfectScrollbar,
-	  Settings,
+    Settings
   },
   data() {
     return {
@@ -142,26 +142,26 @@ export default {
         {
           icon: 'account_circle',
           href: '#',
-          title: 'View Site',
-          //click: this.handleProfile
+          title: 'View Site'
+          // click: this.handleProfile
         },
         {
           icon: 'account_circle',
           href: '#',
-          title: 'Documentation',
-          //click: this.handleProfile
+          title: 'Documentation'
+          // click: this.handleProfile
         },
         {
           icon: 'settings',
           href: '#',
-          title: 'Change Password',
-          //click: this.handleSetting
+          title: 'Change Password'
+          // click: this.handleSetting
         },
         {
           icon: 'fullscreen_exit',
           href: '#',
-          title: 'Logout',
-          //click: this.handleLogut
+          title: 'Logout'
+          // click: this.handleLogut
         }
       ],
       miniVariant: false,
