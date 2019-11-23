@@ -32,7 +32,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "nuxt": "^2.4.0",
     "vue-perfect-scrollbar": "^0.1.0",
     "vuedraggable": "^2.22.0",
