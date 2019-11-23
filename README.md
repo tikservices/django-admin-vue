@@ -29,6 +29,7 @@ Supported Django Packages
 - [ ] django-modeltranslation
 - [ ] django-import-export
 - [ ] django-tenants
+- [x] django-js-asset
 
 Technologies
 ------------

@@ -60,6 +60,9 @@ export default {
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFToken'
   },
+  router: {
+    base: '/admin/',
+  },
 
   /*
    ** Build configuration

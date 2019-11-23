@@ -20,7 +20,7 @@
       </v-card-title>
 
       <v-divider></v-divider>
-      <v-toolbar card color="white">
+      <v-toolbar card color="light">
         <v-text-field
           v-model.trim="search"
           prepend-icon="search"
@@ -111,7 +111,7 @@
       </v-data-table>
     </v-card>
     <v-card v-if="actions.length || filters.length" class="mt-4">
-      <v-toolbar v-if="actions.length" card color="white" height="64">
+      <v-toolbar v-if="actions.length" card color="light" height="64">
         <v-toolbar-title class="subheading">Actions</v-toolbar-title>
         <v-divider class="mx-3" inset vertical></v-divider>
         <v-select
@@ -129,7 +129,7 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-divider></v-divider>
-      <v-toolbar v-if="filters.length" card color="white" height="64">
+      <v-toolbar v-if="filters.length" card color="light" height="64">
         <v-toolbar-title class="subheading">Filters</v-toolbar-title>
         <v-divider class="mx-3" inset vertical></v-divider>
         <v-select
